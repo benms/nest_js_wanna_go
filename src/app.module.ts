@@ -1,6 +1,7 @@
-import Joi from '@hapi/joi';
+import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 import { PostsModule } from './posts/posts.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { PostsModule } from './posts/posts.module';
         PORT: Joi.number(),
       }),
     }),
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],
