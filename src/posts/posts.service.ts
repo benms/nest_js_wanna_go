@@ -5,6 +5,7 @@ import CreatePostDto from './dto/createPost.dto';
 import UpdatePostDto from './dto/updatePost.dto';
 import Post from './post.interface';
 import PostEntity from './post.entity';
+import { PostNotFoundException } from './exception/postNotFound.exception';
 
 @Injectable()
 export default class PostsService {
@@ -23,7 +24,7 @@ export default class PostsService {
   async getPostById(id: number) {
     const post = await this.postsRepository.findOne(id);
     if (!post) {
-      throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+      throw new PostNotFoundException(id);
     }
 
     return post;
@@ -36,7 +37,7 @@ export default class PostsService {
       return updatedPost;
     }
 
-    throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+    throw new PostNotFoundException(id);
   }
 
   async createPost(post: CreatePostDto) {

@@ -3,12 +3,14 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { DatabaseModule } from './database/database.module';
-//import { PostsModule } from './posts/posts.module';
+import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
+import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
-    //PostsModule,
+    PostsModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -26,6 +28,11 @@ import { UsersModule } from './users/users.module';
     UsersModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: ExceptionsLoggerFilter,
+    },
+  ],
 })
 export class AppModule {}
