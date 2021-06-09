@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
-import Category from '../../src/categories/category.entity';
-import User from '../../src/users/user.entity';
+import Category from '../categories/category.entity';
+import User from '../users/user.entity';
 import {
   Column,
   Entity,
